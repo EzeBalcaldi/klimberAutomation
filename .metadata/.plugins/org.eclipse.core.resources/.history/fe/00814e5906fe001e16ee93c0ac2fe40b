@@ -1,0 +1,14 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+
+import pom.Base;
+
+public class DiseasesQuestionnairePage  extends Base {
+
+	public DiseasesQuestionnairePage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
+}

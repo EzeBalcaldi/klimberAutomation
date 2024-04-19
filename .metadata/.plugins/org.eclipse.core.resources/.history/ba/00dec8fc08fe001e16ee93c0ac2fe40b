@@ -1,0 +1,29 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import pom.Base;
+
+public class UserQuestionnairePage  extends Base {
+
+	public UserQuestionnairePage(WebDriver driver) {
+		super(driver);
+	}
+	
+	By mainTitle =  By.className("form-group title");
+	By radioButtonToClick = By.xpath("//input[@type='radio' and @name='UnderwritingCustom[1].ResponseBool' and @value='true']");
+	By heightInput = By.id("txtHeight");
+	By weightInput = By.id("txtWeight");
+	
+	public String getMainTitleText() {
+		return this.getText(mainTitle);
+	}
+	
+	public void completeFormInfo() {
+		this.click(radioButtonToClick);
+		this.write(heightInput, "180");
+		this.write(weightInput, "70");
+	}
+
+}

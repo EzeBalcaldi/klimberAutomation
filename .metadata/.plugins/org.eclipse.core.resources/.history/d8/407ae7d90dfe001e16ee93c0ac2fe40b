@@ -1,0 +1,37 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import pom.Base;
+
+public class ContactInfoPage extends Base{
+
+	public ContactInfoPage(WebDriver driver) {
+		super(driver);
+	}
+	
+	By nameAndEmailTitle = By.className("custom-text");
+	By nameInput = By.id("txtName");
+	By emailInput = By.id("txtEmailFrom");
+	By phoneInput = By.id("PhoneNumber");
+	
+	
+	public String getNameAndEmailTitleValue() {
+		return this.getText(nameAndEmailTitle);
+	}
+	
+	public void fillNameInput(String value) {
+		this.write(nameInput, value);
+	}
+	
+	public void fillNameInput(String value) {
+		this.write(nameInput, value);
+	}
+	
+	public void fillNameInput(String value) {
+		this.write(nameInput, value);
+	}
+	
+
+}

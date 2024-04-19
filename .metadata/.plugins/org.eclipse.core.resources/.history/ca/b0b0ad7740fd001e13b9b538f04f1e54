@@ -1,0 +1,113 @@
+package pom;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Base {
+	
+	private WebDriver driver;
+	
+	public Base(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public WebDriver firefoxConnection() {
+		System.setProperty("webdriver.chrome.driver", "/A:/Descargas/geckodriver-v0.34.0-win32/geckodriver.exe");
+		driver = new FirefoxDriver();
+		return driver;
+	}
+	
+	public void goToPage(String url) {
+		driver.get(url);
+	}
+	
+	public WebElement findElement(By locator) {
+		return driver.findElement(locator);
+	}
+	
+	public void write(By locator, String text) {
+		 driver.findElement(locator).sendKeys(text);
+	}
+	
+	public void click(By locator) {
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+		 driver.findElement(locator).click();
+	}
+	
+	public void select(By locator, String option) {
+		Select objSelect =new Select(driver.findElement(locator));
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+		objSelect.selectByVisibleText(option); 
+	}
+	
+	public void click(WebElement element) {
+		element.click();
+	}
+	
+	public void selectListOption(By locator, String option) {
+		List<WebElement> listValues = this.findElements(locator);
+		for(WebElement element:listValues) {
+			if (element.getText().equals(option))
+			this.click(element);
+		}
+	}
+	
+	public void listOption(By locator, String option) {
+		List<WebElement> options = driver.findElements(By. cssSelector(".k-item.k-state-default"));
+
+		for (WebElement opt : options) {
+
+		    if (opt.getText().equals("Profiles")) {
+
+		        opt.click();
+
+		    }
+		}
+	}
+	
+	public void moveSlider(By locator) {
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+		WebElement e = driver.findElement(locator);
+		Actions move = new Actions(driver);
+		move.moveToElement(e).clickAndHold().moveByOffset(0,250).release().perform();
+	}
+	
+	public String getText(By locator) {
+		return driver.findElement(locator).getText();
+	}
+	
+	public boolean isDisplayed(By locator) {
+		try {
+			return driver.findElement(locator).isDisplayed();
+		}catch(org.openqa.selenium.NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	public String getText(WebElement element) {
+		return element.getText();
+	}
+	
+	public List<WebElement> findElements(By locator){
+		return driver.findElements(locator);
+	}
+	
+
+	
+	
+	
+
+	
+	
+	
+
+}

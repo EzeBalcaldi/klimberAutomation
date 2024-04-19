@@ -1,0 +1,36 @@
+package pruebaTecnica;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import junit.framework.Assert;
+
+public class Test {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "/A:/Descargas/geckodriver-v0.34.0-win32/geckodriver.exe");
+
+		By popup = By.cssSelector(".ui-pnotify-text");
+
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://purchase-testing.klimber.com/ar/GroupLife/Index");
+		driver.findElement(By.id("BirthdayStep1")).sendKeys("01121998");
+		driver.findElement(By.cssSelector(".custom-nav")).click();
+		driver.findElement(By.cssSelector(".email")).sendKeys("prueba.com");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		String popupLogin = driver.findElement(By.cssSelector(".ui-pnotify-text")).getText();
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(popup));
+		Assert.assertEquals("Email_Empty", popupLogin);
+		driver.close();
+	}
+
+}

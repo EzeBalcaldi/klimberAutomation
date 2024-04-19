@@ -1,0 +1,19 @@
+package pruebaTecnica;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class PageObjects {
+	
+	public void waitAndClick(WebElement e) {
+        try{
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+            WebElement elemento = driver.findElement(locator);
+            elemento.click();
+        }catch(Exception e){
+            throw new Exception("No se pudo clickear el objeto. "+e.getMessage());
+        }
+
+	}
+
+}

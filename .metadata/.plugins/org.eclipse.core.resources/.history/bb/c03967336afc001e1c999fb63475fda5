@@ -1,0 +1,11 @@
+package pruebaTecnica;
+
+import org.openqa.selenium.By;
+
+public class PageObjects {
+	
+	public void waitAndClick(WebElement e) {
+		
+	}
+
+}

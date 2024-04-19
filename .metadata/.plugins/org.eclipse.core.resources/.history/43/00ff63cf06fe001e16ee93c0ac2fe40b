@@ -1,0 +1,20 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import pom.Base;
+
+public class DiseasesQuestionnairePage  extends Base {
+
+	public DiseasesQuestionnairePage(WebDriver driver) {
+		super(driver);
+	}
+	
+	By mainTitle =  By.className("form-group title");
+	
+	public void getMainTitleText() {
+		this.getText(mainTitle);
+	}
+
+}

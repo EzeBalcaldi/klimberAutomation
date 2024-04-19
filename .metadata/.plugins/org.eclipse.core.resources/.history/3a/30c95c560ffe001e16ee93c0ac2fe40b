@@ -1,0 +1,54 @@
+package test;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+
+import pages.UserQuestionnairePage;
+import pages.ContactInfoPage;
+import pages.HomePage;
+
+public class SimpleTest {
+	
+	private WebDriver driver;
+	private HomePage homePage;
+	private ContactInfoPage contactPage;
+	private UserQuestionnairePage questionnairePage;
+	
+	@Before
+	public void setUp() throws Exception{
+		homePage = new HomePage(driver);
+		driver = homePage.firefoxConnection();
+		questionnairePage = new UserQuestionnairePage(driver);
+		contactPage = new ContactInfoPage(driver);
+		driver.manage().window().maximize();
+		homePage.goToPage("https://purchase-testing.klimber.com/ar/GroupLife/Index");
+	}
+	
+	@After
+	public void tearDown() throws Exception{
+		//driver.quit();
+	}
+	@Test
+	public void test() throws InterruptedException{
+		homePage.fillDateInput();
+		homePage.fillCellphoneInputs();
+		homePage.selectProvince();
+		homePage.selectAssuredSum();
+		Assert.assertEquals("Contratar por $942 por mes", homePage.getConfirmationPriceString());
+		homePage.clickSave();
+		Assert.assertEquals("Necesito conocerte un poco más:", questionnairePage.getMainTitleText());
+		questionnairePage.completeFormInfo();
+		Assert.assertEquals("180", questionnairePage.getHeightInputValue());
+		Assert.assertEquals("70", questionnairePage.getWeightInputValue());
+		questionnairePage.saveForm();
+		Assert.assertEquals("Dejanos tu nombre y tu email", contactPage.getNameAndEmailTitleValue());
+		contactPage.fillNameInput("Ezequiel");
+		contactPage.fillEmailInput("test@email.com");
+		contactPage.fillPhoneInput("12345678");
+	}
+	
+
+}

@@ -1,0 +1,62 @@
+package pages;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import pom.Base;
+
+public class HomePage extends Base{
+		
+	public HomePage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+	//new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+
+	By popup = By.xpath("//div[@class='ui-pnotify-text']");
+	By button = By.xpath("//button[@id='btnSaveStep1']");
+	By passwordInput = By.xpath("//input[@type='password']");
+	By birthdateInput = By.id("BirthdayStep1");
+	By phoneCodeInput = By.id("txtPhoneCode");
+	By cellphoneInput = By.id("txtPhoneNumber");
+	By provinceInput = By.className("select2-results__option");
+	By provinceDropdown = By.id("select2-province-container");
+	By slider = By.className("slider-horizontal");
+	
+	public void fillDateInputNegativePath() {
+		this.write(birthdateInput, "20/11/1998");
+	}
+	
+	public void fillCellphoneInputs() {
+		this.write(phoneCodeInput, "123");
+		this.write(cellphoneInput, "123456");
+	}
+	
+	public void selectProvince() {
+		this.click(provinceDropdown);
+		this.selectListOption(provinceInput, "CABA");
+	}
+	
+	public void selectAssuredSum() {
+		this.moveSlider(slider);
+	}
+	
+	
+	public void waitAndWrite(By locator, WebDriver driver, String key) throws Exception{
+        try{
+    		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
+    		driver.findElement(locator).sendKeys(key);
+        }catch(Exception e){
+            throw new Exception("Couldn't write in target object "+e.getMessage());
+        }
+		
+	}
+	
+
+}

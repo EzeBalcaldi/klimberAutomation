@@ -1,0 +1,66 @@
+package test;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+
+import pages.UserQuestionnairePage;
+import pages.ContactInfoPage;
+import pages.HomePage;
+
+public class Test01_HappyPathTest {
+	
+    // Constantes para los mensajes esperados
+    private static final String EXPECTED_CONFIRMATION_PRICE = "Contratar por $942 por mes";
+    private static final String EXPECTED_MAIN_TITLE = "Necesito conocerte un poco más:";
+    private static final String EXPECTED_HEIGHT_INPUT = "180";
+    private static final String EXPECTED_WEIGHT_INPUT = "70";
+    private static final String EXPECTED_NAME_EMAIL_TITLE = "Dejanos tu nombre y tu email";
+    private static final String EXPECTED_EMAIL_SENT_NOTIFICATION = "El e-mail fue enviado correctamente.";
+	
+	private WebDriver driver;
+	private HomePage homePage;
+	private ContactInfoPage contactPage;
+	private UserQuestionnairePage questionnairePage;
+	
+	@Before
+	public void setUp() throws Exception{
+		homePage = new HomePage(driver);
+		driver = homePage.firefoxConnection();
+		questionnairePage = new UserQuestionnairePage(driver);
+		contactPage = new ContactInfoPage(driver);
+		driver.manage().window().maximize();
+		homePage.goToPage("https://purchase-testing.klimber.com/ar/GroupLife/Index");
+	}
+	
+	@After
+	public void tearDown() throws Exception{
+		//driver.quit();
+	}
+	@Test
+	public void test() throws Exception{
+		homePage.fillDateInput("01/12/1998");
+		homePage.fillCellphoneInputs("123", "123456");
+		homePage.selectProvince("CABA");
+		homePage.selectAssuredSum();
+        Assert.assertEquals(EXPECTED_CONFIRMATION_PRICE, homePage.getConfirmationPriceString());
+		homePage.clickSave();
+        Assert.assertEquals(EXPECTED_MAIN_TITLE, questionnairePage.getMainTitleText());
+		questionnairePage.checkAssistanceNeededRadioButton();
+		questionnairePage.fillHeightInput("180");
+		questionnairePage.fillWeightInput("70");
+		Assert.assertEquals("180", questionnairePage.getHeightInputValue());
+		Assert.assertEquals("70", questionnairePage.getWeightInputValue());
+		questionnairePage.saveForm();
+		Assert.assertEquals("Dejanos tu nombre y tu email", contactPage.getNameAndEmailTitleValue());
+		contactPage.fillNameInput("Ezequiel");
+		contactPage.fillEmailInput("test@email.com");
+		contactPage.fillPhoneInput("12345678");
+		contactPage.clickNextButton();
+		Assert.assertEquals("El e-mail fue enviado correctamente.", contactPage.getEmailSentNotificationText());
+	}
+	
+
+}

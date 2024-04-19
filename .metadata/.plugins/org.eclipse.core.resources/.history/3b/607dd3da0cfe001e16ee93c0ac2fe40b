@@ -1,0 +1,43 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import pom.Base;
+
+public class UserQuestionnairePage  extends Base {
+
+	public UserQuestionnairePage(WebDriver driver) {
+		super(driver);
+	}
+	
+	By heightInput = By.id("txtHeight");
+	By weightInput = By.id("txtWeight");
+	By mainTitle =  By.className("title");
+	By saveButton = By.id("btnSaveStep2");
+	By radioButtonToClick = By.xpath("//input[@type='radio' and @name='UnderwritingCustom[1].ResponseBool' and @value='true']");
+
+	
+	public String getMainTitleText() {
+		return this.getText(mainTitle);
+	}
+	
+	public void completeFormInfo() {
+		this.click(radioButtonToClick);
+		this.write(heightInput, "180");
+		this.write(weightInput, "70");
+	}
+	
+	public String getHeightInputValue() {
+	    return this.getAttribute(heightInput, "value");
+	}
+	
+	public String getWeightInputValue() {
+	    return this.getAttribute(weightInput, "value");
+	}
+	
+	public void saveForm() {
+		this.click(saveButton);
+	}
+
+}

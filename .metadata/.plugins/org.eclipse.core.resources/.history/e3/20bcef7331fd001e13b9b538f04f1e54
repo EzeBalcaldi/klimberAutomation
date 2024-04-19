@@ -1,0 +1,26 @@
+package pruebaTecnica;
+
+import java.time.Duration;
+import pages.HomePage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class PageObjects {
+	
+	public static FirefoxDriver driver;
+	
+	public static void waitAndClick(By locator) throws Exception {
+        try{
+    		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+    		driver.findElement(locator).click();
+        }catch(Exception e){
+            throw new Exception("No se pudo clickear el objeto. "+e.getMessage());
+        }
+
+	}
+
+}
