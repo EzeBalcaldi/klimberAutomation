@@ -1,13 +1,8 @@
 package pages;
 
-import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pom.Base;
 
@@ -23,7 +18,8 @@ public class HomePage extends Base{
 	private By phoneCodeInput = By.id("txtPhoneCode");
 	private By birthdateInput = By.id("BirthdayStep1");
 	private By cellphoneInput = By.id("txtPhoneNumber");
-	private By passwordInput = By.xpath("//input[@type='password']");
+	private By closeNotification = By.className("brighttheme-icon-closer");
+	private By notificationText = By.className("ui-pnotify-text");
 	private By provinceDropdown = By.id("select2-province-container");
 	private By provinceInput = By.className("select2-results__option");
 	
@@ -52,5 +48,21 @@ public class HomePage extends Base{
 	
 	public void clickSave() {
 		this.click(btnSave);
+	}
+	
+	public String getNotificationText() {
+		return this.getText(notificationText);
+	}
+	
+	public void clearCellphoneInput() {
+		this.clear(cellphoneInput);
+	}
+	
+	public void clearPhoneCodeInput() {
+		this.clear(phoneCodeInput);
+	}
+	
+	public boolean isCurrentPage(String expectedUrl) {
+	    return this.getUrl().equals(expectedUrl);
 	}
 }

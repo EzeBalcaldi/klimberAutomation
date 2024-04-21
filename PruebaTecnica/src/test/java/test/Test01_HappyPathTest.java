@@ -19,6 +19,7 @@ public class Test01_HappyPathTest {
     private static final String EXPECTED_WEIGHT_INPUT = "70";
     private static final String EXPECTED_NAME_EMAIL_TITLE = "Dejanos tu nombre y tu email";
     private static final String EXPECTED_EMAIL_SENT_NOTIFICATION = "El e-mail fue enviado correctamente.";
+    private static final String PAGE_URL = "https://purchase-testing.klimber.com/ar/GroupLife/Index";
 	
     // WebDriver instance and Page Objects 
 	private WebDriver driver;
@@ -34,7 +35,7 @@ public class Test01_HappyPathTest {
 		questionnairePage = new UserQuestionnairePage(driver);
 		contactPage = new ContactInfoPage(driver);
 		driver.manage().window().maximize();
-		homePage.goToPage("https://purchase-testing.klimber.com/ar/GroupLife/Index");
+		homePage.goToPage(PAGE_URL);
 	}
 	
 	// Post-test configs

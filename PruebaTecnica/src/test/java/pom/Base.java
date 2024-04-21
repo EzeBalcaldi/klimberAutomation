@@ -38,6 +38,7 @@ public class Base {
 	}
 	
 	public void write(By locator, String text) {
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
 		 driver.findElement(locator).sendKeys(text);
 	}
 	
@@ -111,13 +112,12 @@ public class Base {
 	    return driver.findElement(locator).getAttribute(attributeName);
 	}
 	
-
+	public void clear(By locator) {
+		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
+		driver.findElement(locator).clear();
+	}
 	
-	
-	
-
-	
-	
-	
-
+	public String getUrl() {
+		 return driver.getCurrentUrl();
+	}
 }
