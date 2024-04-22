@@ -32,9 +32,10 @@ public class Test03_NoCharactersAllowedInPhoneInputs {
 	// Post-test configs
 	@After
 	public void tearDown() throws Exception{
-		//driver.quit();
+		driver.quit();
 	}
 	
+	// Test case: Verifying that the system does not allow characters in the phone code and phone number inputs.
 	@Test
 	public void test() throws Exception{
 		//Filling date and province input with a valid data

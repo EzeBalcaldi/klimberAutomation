@@ -4,15 +4,12 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Base {
@@ -46,27 +43,6 @@ public class Base {
 		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
 		 driver.findElement(locator).click();
 	}
-	
-//	public void selectListOption(By locator, String optionText) {
-//	    List<WebElement> options = driver.findElements(locator);
-//	    for (WebElement option : options) {
-//	        if (option.getText().equals(optionText)) {
-//	            try {
-//	                option.click();
-//	            } catch (StaleElementReferenceException e) {
-//	                // Vuelvo a obtener el elemento, ya que al seleccionar una opción, la pagina se recarga, haciendo que el elemento desaparezca del DOM
-//	                options = driver.findElements(locator);
-//	                for (WebElement newOption : options) {
-//	                    if (newOption.getText().equals(optionText)) {
-//	                        newOption.click();
-//	                    }
-//	                }
-//	                throw new NoSuchElementException("Option with text '" + optionText + "' not found in the list.");
-//	            }
-//	        }
-//	    }
-//	    throw new NoSuchElementException("Option with text '" + optionText + "' not found in the list.");
-//	}
 	
 	public void selectListOption(By listLocator, String text) {
 	    WebElement option = findListOptionByText(listLocator, text);
@@ -111,13 +87,28 @@ public class Base {
 	    new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
 	    return driver.findElement(locator).getAttribute(attributeName);
 	}
-	
-	public void clear(By locator) {
-		new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(locator));
-		driver.findElement(locator).clear();
-	}
-	
+
 	public String getUrl() {
 		 return driver.getCurrentUrl();
 	}
+	
+    public void clearInput(By locator) {
+        WebElement inputField = driver.findElement(locator);
+        String text = inputField.getAttribute("value");
+        for (int i = 0; i < text.length(); i++) {
+        	this.click(locator);
+            inputField.sendKeys(Keys.BACK_SPACE);
+        }
+    }
+    
+    public void sendKey(By locator, Keys key) {
+        WebElement inputField = driver.findElement(locator);
+        inputField.sendKeys(key);
+    }
+    
+    public boolean isEnabled(By locator) {
+	    new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(locator));
+    	return driver.findElement(locator).isEnabled();
+    }
+    
 }

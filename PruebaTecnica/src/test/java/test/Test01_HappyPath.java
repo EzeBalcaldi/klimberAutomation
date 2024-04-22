@@ -10,7 +10,7 @@ import pages.UserQuestionnairePage;
 import pages.ContactInfoPage;
 import pages.HomePage;
 
-public class Test01_HappyPathTest {
+public class Test01_HappyPath {
 	
     // Constants for the expected messages in the test
     private static final String EXPECTED_CONFIRMATION_PRICE = "Contratar por $942 por mes";
@@ -44,6 +44,7 @@ public class Test01_HappyPathTest {
 		driver.quit();
 	}
 	
+	// Test case: Executing the happy path scenario, filling all required information and validating the flow.
 	@Test
 	public void test() throws Exception{
 		//Filling the required information, and selecting an assured sum using the slider 

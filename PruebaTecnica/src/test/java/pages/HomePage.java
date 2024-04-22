@@ -1,16 +1,14 @@
 package pages;
 
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-
 import pom.Base;
 
 public class HomePage extends Base{
 		
 	public HomePage(WebDriver driver) {
 		super(driver);
-		// TODO Auto-generated constructor stub
 	}
 	
 	private By slider = By.className("slider");
@@ -18,13 +16,18 @@ public class HomePage extends Base{
 	private By phoneCodeInput = By.id("txtPhoneCode");
 	private By birthdateInput = By.id("BirthdayStep1");
 	private By cellphoneInput = By.id("txtPhoneNumber");
-	private By closeNotification = By.className("brighttheme-icon-closer");
 	private By notificationText = By.className("ui-pnotify-text");
 	private By provinceDropdown = By.id("select2-province-container");
 	private By provinceInput = By.className("select2-results__option");
+	private By closeNotificationPopup = By.className("brighttheme-icon-closer");
 	
 	public void fillDateInput(String value) {
 		this.write(birthdateInput, value);
+	}
+	
+	public void fillDateInputWithEnter(String value) {
+		this.write(birthdateInput, value);
+		this.sendKey(birthdateInput, Keys.ENTER);
 	}
 	
 	public void fillCellphoneInputs(String phoneCode, String number) {
@@ -55,14 +58,26 @@ public class HomePage extends Base{
 	}
 	
 	public void clearCellphoneInput() {
-		this.clear(cellphoneInput);
+		this.clearInput(cellphoneInput);
 	}
 	
 	public void clearPhoneCodeInput() {
-		this.clear(phoneCodeInput);
+		this.clearInput(phoneCodeInput);
 	}
 	
 	public boolean isCurrentPage(String expectedUrl) {
 	    return this.getUrl().equals(expectedUrl);
+	}
+	
+	public void clearDateInput() {
+		this.clearInput(birthdateInput);
+	}
+	
+	public void closeNotificationPopup() {
+		this.click(closeNotificationPopup);
+	}
+	
+	public boolean isSaveButtonEnabled() {
+		return this.isEnabled(btnSave);
 	}
 }
